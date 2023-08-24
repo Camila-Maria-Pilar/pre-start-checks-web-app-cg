@@ -13,9 +13,9 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Signup from './pages/Signup';
 
-import NavBar from './components/containers/NavBar';
-import Footer from './components/containers/Footer';
-import Header from './components/containers/Header';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
