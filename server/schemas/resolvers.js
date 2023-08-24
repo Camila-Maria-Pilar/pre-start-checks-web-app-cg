@@ -72,7 +72,7 @@ const resolvers = {
     },
 
     //For PreCheckLog
-    getAlltPreCheckLogs: async (parent, args, context) => {
+    getAllPreCheckLogs: async (parent, args, context) => {
       try {
         checkRole(context.user, ['ADMIN', 'OPERATOR'], 'perform this operation');
         return await PreCheckLog.find({});
