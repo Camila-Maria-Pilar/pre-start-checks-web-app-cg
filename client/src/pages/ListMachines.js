@@ -27,9 +27,10 @@ function ListMachine() {
     <div key={index}>
       <h1>Machines</h1>
 
-      <Card title="Machine Details">{m.name}</Card>
-
-      <Link to={`/machines${m.id}`}>View</Link>
+      <Card title="Machine Details">
+        <p>{m.name}</p>
+        <Link to={`/machines/${m.id}`}>View</Link>
+      </Card>
     </div>
   ));
 }

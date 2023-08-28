@@ -9,6 +9,7 @@ import EditMachine from './pages/EditMachine';
 import AddUser from './pages/AddUser';
 import EditUser from './pages/EditUser';
 import ListMachines from './pages/ListMachines';
+import MachineDetails from './pages/MachineDetails';
 
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -57,6 +58,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/machines" element={<ListMachines />} />
+              <Route path="/machines/:id" element={<MachineDetails />} />
               <Route path="/addmachine" element={<AddMachine />} />
               <Route path="/editmachine" element={<EditMachine />} />
               <Route path="/adduser" element={<AddUser />} />
