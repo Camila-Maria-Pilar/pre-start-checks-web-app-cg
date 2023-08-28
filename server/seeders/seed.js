@@ -17,23 +17,19 @@ const seedAll = async () => {
     await PreCheckLog.deleteMany({});
 
     const adminUser = await User.create({
-      username: 'Cgalle',
-      email: 'admin@example.com',  
-      password: await hashPassword('adminPassword'),
-      role: 'ADMIN',
+      username: 'Chamile',
+      email: 'admin@email.com',  
+      password: await hashPassword('admin123'),
+      role: 'Admin',
     });
 
-    const operatorUser = await User.create({
-      username: 'Operator1',
-      email: 'op1@example.com',  
-      password: await hashPassword('operatorPassword'),
-      role: 'OPERATOR',
-    });
-
+    console.log('Created Admin User:', adminUser);
+   
     const machines = await Machine.create([
       { name: 'Forklift' },
       { name: 'Bandsaw' },
       { name: 'Welder' },
+      { name: 'Plasma' },
     ]);
 
     const questions = await Question.create([
@@ -56,6 +52,7 @@ const seedAll = async () => {
       },
     ]);
     console.log('Admin User ID:', adminUser._id); // Should output ObjectId
+    
     const preCheckLogs = await PreCheckLog.create([
       {
         machineId: machines[0]._id,

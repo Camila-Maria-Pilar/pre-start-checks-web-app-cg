@@ -6,55 +6,30 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-      }
+      
+      
     }
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
+export const QUERY_MACHINE = gql`
+  query getAllMachines {
+    machines {
       _id
-      thoughtText
-      thoughtAuthor
+      name
       createdAt
     }
   }
 `;
 
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
+export const QUERY_SINGLE_MACHINE = gql`
+  query getMachine($MachineId: ID!) {
+    machine(MachineId: $machineId) {
       _id
-      thoughtText
-      thoughtAuthor
+      name      
       createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
-    }
+      
+  }
   }
 `;
 
-export const QUERY_ME = gql`
-  query me {
-    me {
-      _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        thoughtAuthor
-        createdAt
-      }
-    }
-  }
-`;

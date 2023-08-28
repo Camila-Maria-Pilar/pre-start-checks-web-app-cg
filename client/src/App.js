@@ -8,14 +8,21 @@ import AddMachine from './pages/AddMachine';
 import EditMachine from './pages/EditMachine';
 import AddUser from './pages/AddUser';
 import EditUser from './pages/EditUser';
-import PreStartCheckQuestionary from './pages/PreStartCheckQuestionary';
+import ListMachines from './pages/ListMachines';
+
 import Login from './pages/Login';
 import Logout from './pages/Logout';
-import Signup from './pages/Signup';
 
-import NavBar from './components/NavBar';
+
+import NavBar from './containers/NavBar';
+import Header from './containers/Header';
 import Footer from './components/Footer';
-import Header from './components/Header';
+//import Button from './components/Button';
+// LoadingSpinner from './components/LoadingSpinner';
+//import SelectField from './components/SelectField';
+//import Card from './components/Card';
+//import Table from './components/Table';
+//import Modal from './components/Modal';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -48,14 +55,16 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/add-machine" element={<AddMachine />} />
-              <Route path="/edit-machine" element={<EditMachine />} />
-              <Route path="/add-user" element={<AddUser />} />
-              <Route path="/edit-user" element={<EditUser />} />
-              <Route path="/pre-start-check" element={<PreStartCheckQuestionary />} />
+              <Route path="/dashboard" element={<Dashboard/>} />
+              <Route path="/machines" element={<ListMachines />} />
+              <Route path="/addmachine" element={<AddMachine />} />
+              <Route path="/editmachine" element={<EditMachine />} />
+              <Route path="/adduser" element={<AddUser />} />
+              <Route path="/edituser" element={<EditUser />} />
+              
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
-              <Route path="/signup" element={<Signup />} />
+              
             </Routes>
           </div>
           <Footer />

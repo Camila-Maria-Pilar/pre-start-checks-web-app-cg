@@ -20,10 +20,11 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  role: { 
-    type: String, 
-    required: true 
+  role: {
+    type: String,
+    required: true,
   }
+  
 }, {
   timestamps: true // Adding Mongoose Timestamps
 });

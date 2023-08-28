@@ -1,13 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useNavigate} from 'react-router-dom';
 
 const Logout = () => {
-  useEffect(() => {
-    // Perform logout logic here, then redirect to homepage
-  }, []);
-  
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem('token');
+    
+    // Redirect user to the login page 
+    navigate('/login');
+  };
+
   return (
     <div>
-      Logging out...
+      <p>You have successfully logged out.</p>
+      <button onClick={handleLogout}>Click here to log in again</button>
+      
     </div>
   );
 };

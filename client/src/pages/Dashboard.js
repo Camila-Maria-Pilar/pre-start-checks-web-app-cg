@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Dashboard = () => {
+function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      {/* Display maintenance logs and other relevant info here */}
+      {/* Your content here */}
     </div>
   );
-};
+}
 
 export default Dashboard;
