@@ -76,6 +76,16 @@ const resolvers = {
       }
     },
 
+    getQuestionsByMachineId: async (parent, args, context) => {
+      try {
+        // You can add any additional role checks here if you want
+        return await Question.find({ machineId: args.machineId });
+      } catch (err) {
+        throw new ApolloError(err.message);
+      }
+    },
+    
+
     //For PreCheckLog
     getAllPreCheckLogs: async (parent, args, context) => {
       try {

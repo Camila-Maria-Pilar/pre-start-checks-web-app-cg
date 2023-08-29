@@ -36,18 +36,18 @@ const seedAll = async () => {
       {
         machineId: machines[0]._id,
         questions: [
-          { text: 'What is the fuel level?', answers: ['Yes', 'No', 'Good', 'Bad'] },
-          { text: 'Seatbelt functional?', answers: ['Yes', 'No', 'Good', 'Bad'] },
-          { text: 'Tyre pressure?', answers: ['Yes', 'No', 'Good', 'Bad'] },
-          { text: 'Engine condition?', answers: ['Yes', 'No', 'Good', 'Bad'] },
+          { text: 'What is the fuel level?', answers: ['Good', 'Bad'] },
+          { text: 'Seatbelt functional?', answers: ['Yes', 'No'] },
+          { text: 'Tyre pressure?', answers: ['Good', 'Bad'] },
+          { text: 'Engine condition?', answers: [ 'Good', 'Bad'] },
         ],
       },
       {
         machineId: machines[1]._id,
         questions: [
-          { text: 'Lubricated?', answers: ['Yes', 'No', 'Good', 'Bad'] },
-          { text: 'Tyre pressure?', answers: ['Yes', 'No', 'Good', 'Bad'] },
-          { text: 'Engine condition?', answers: ['Yes', 'No', 'Good', 'Bad'] },
+          { text: 'Lubricated?', answers: ['Yes', 'No'] },
+          { text: 'Tyre pressure?', answers: [ 'Good', 'Bad'] },
+          { text: 'Engine condition?', answers: [ 'Good', 'Bad'] },
         ],
       },
     ]);

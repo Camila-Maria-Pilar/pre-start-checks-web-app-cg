@@ -10,6 +10,7 @@ import AddUser from './pages/AddUser';
 import EditUser from './pages/EditUser';
 import ListMachines from './pages/ListMachines';
 import MachineDetails from './pages/MachineDetails';
+import AddQuestionnaire from './pages/AddQuestionnaire';
 
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -61,6 +62,7 @@ function App() {
               <Route path="/machines/:id" element={<MachineDetails />} />
               <Route path="/addmachine" element={<AddMachine />} />
               <Route path="/editmachine" element={<EditMachine />} />
+              <Route path="/addquestionnaire" element={<AddQuestionnaire />} />
               <Route path="/adduser" element={<AddUser />} />
               <Route path="/edituser" element={<EditUser />} />
               

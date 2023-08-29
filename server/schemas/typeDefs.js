@@ -57,7 +57,10 @@ const typeDefs = gql`
     getQuestion(id: ID!): Question
     getAllPreCheckLogs: [PreCheckLog!]
     getPreCheckLog(id: ID!): PreCheckLog
+    getQuestionsByMachineId(machineId: ID!): [Question]
+
   }
+  
 
   type Mutation {
     login(email: String!, password: String!): Auth
@@ -91,6 +94,7 @@ const typeDefs = gql`
       comments: String
       userId: ID!
     ): PreCheckLog!
+    
     editPreCheckLog(
       _id: ID!
       machineId: ID!
@@ -99,6 +103,7 @@ const typeDefs = gql`
       comments: String
       userId: ID!
     ): PreCheckLog!
+    
     deletePreCheckLog(_id: ID!): Boolean
   }
 `;

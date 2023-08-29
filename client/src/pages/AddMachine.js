@@ -62,7 +62,7 @@ function AddMachine() {
 
      
 
-      <Button label="Save" onClick={saveMachine} />
+      <Button label="Save" onClick={saveMachine}/>
     </div>
   );
 }
