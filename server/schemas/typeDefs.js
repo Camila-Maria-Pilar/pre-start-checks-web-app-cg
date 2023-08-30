@@ -66,13 +66,8 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     logout: Boolean
 
-    addUser(
-      username: String!
-      email: String!
-      password: String!
-      role: String!
-    ): User!
-    editUser(_id: ID!, username: String, password: String, role: String!): User!
+    addUser(username: String!, email: String!, password: String!, role: String! ): User!    
+    editUser(_id: ID!, username: String, password: String, role: String!): User!    
     deleteUser(_id: ID!): Boolean
 
     addMachine(name: String!): Machine!
@@ -80,30 +75,11 @@ const typeDefs = gql`
     deleteMachine(_id: ID!): Boolean
 
     addQuestion(machineId: ID!, questions: [AnswerInput!]!): Question!
-    editQuestion(
-      _id: ID!
-      machineId: ID!
-      questions: [AnswerInput!]!
-    ): Question!
+    editQuestion(_id: ID!, machineId: ID!, questions: [AnswerInput!]!): Question!
     deleteQuestion(_id: ID!): Boolean
 
-    addPreCheckLog(
-      machineId: ID!
-      questionId: ID!
-      answerGiven: String!
-      comments: String
-      userId: ID!
-    ): PreCheckLog!
-    
-    editPreCheckLog(
-      _id: ID!
-      machineId: ID!
-      questionId: ID!
-      answerGiven: String!
-      comments: String
-      userId: ID!
-    ): PreCheckLog!
-    
+    addPreCheckLog(machineId: ID!, questionId: ID!, answerGiven: String!, comments: String, userId: ID!): PreCheckLog!    
+    editPreCheckLog(_id: ID!, machineId: ID!, questionId: ID!, answerGiven: String!, comments: String, userId: ID!, ): PreCheckLog!    
     deletePreCheckLog(_id: ID!): Boolean
   }
 `;

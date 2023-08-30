@@ -1,35 +1,103 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
-      _id
+export const QUERY_ALLUSERS = gql`
+  query GetAllUsers {
+    getAllUsers {
       username
       email
-      
+      role
       
     }
-  }
-`;
+  }`;
+
+export const QUERY_USER = gql`
+  query GetUser($getUserId: ID!) {
+    getUser(id: $getUserId) {
+      id
+      username
+      email
+      role
+      
+    }
+  }`;
+
+export const QUERY_ALLMACHINES = gql`
+  query GetAllMachines {
+    getAllMachines {
+      name
+      
+    }
+  }`;
 
 export const QUERY_MACHINE = gql`
-  query getAllMachines {
-    machines {
-      _id
-      name
-      createdAt
-    }
+  query GetMachine($getMachineId: ID!) {
+  getMachine(id: $getMachineId) {
+    name
+    
   }
-`;
+}`;
 
-export const QUERY_SINGLE_MACHINE = gql`
-  query getMachine($MachineId: ID!) {
-    machine(MachineId: $machineId) {
-      _id
-      name      
-      createdAt
+export const GET_QUESTIONS_BY_MACHINE_ID = gql`
+  query getQuestionsByMachineId($machineId: ID!) {
+    getQuestionsByMachineId(machineId: $machineId) {
+      id
+      machineId
+      questions {
+        text
+        answers
+      }
       
-  }
-  }
-`;
+    }
+  }`;
 
+export const GET_ALLQUESTIONS = gql`
+  query GetQuestionsByMachineId($machineId: ID!) {
+  getQuestionsByMachineId(machineId: $machineId) {
+    
+    machineId
+    questions {
+      text
+      answers
+    }
+    
+  }
+
+}`;
+
+export const GET_QUESTION = gql`
+  query GetQuestion($getQuestionId: ID!) {
+  getQuestion(id: $getQuestionId) {
+    id
+    machineId
+    questions {
+      text
+      answers
+    }
+    createdAt
+  }
+}`;
+
+export const GET_ALLPRECHECKLOGS = gql`
+  query GetAllPreCheckLogs {
+  getAllPreCheckLogs {
+    machineId
+    questionId
+    answerGiven
+    comments
+    userId
+    createdAt
+  }
+}`;
+
+export const GET_PRECHECKLOGBYMACHINE = gql`
+  query GetQuestionsByMachineId($machineId: ID!) {
+  getQuestionsByMachineId(machineId: $machineId) {
+    id
+    machineId
+    questions {
+      text
+      answers      
+    }
+    createdAt
+  }
+}`;

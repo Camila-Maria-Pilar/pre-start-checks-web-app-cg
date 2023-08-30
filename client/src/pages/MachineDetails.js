@@ -1,31 +1,29 @@
-import { useMutation } from '@apollo/client';
-import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
+import QRCode from "react-qr-code";
+
 import Card from "../components/Card";
 
 import { useParams } from "react-router-dom";
 
-
-
 // Machine Details Query
 
-const DETAILS_MACHINE = gql`
-    query GetMachine($getMachineId: ID!) {
+const QUERY_MACHINE = gql`
+  query GetMachine($getMachineId: ID!) {
     getMachine(id: $getMachineId) {
-        name
+      name
     }
-}
+  }
 `;
 
 // Machine Details Card
 
 function MachineDetails() {
-    let { id } = useParams();    
-    const { loading, error, data } = useQuery(DETAILS_MACHINE, {
-      variables: { getMachineId: id }
-    });
-    const machine = data?.getMachine;
+  let { id } = useParams();
+  const { loading, error, data } = useQuery(QUERY_MACHINE, {
+    variables: { getMachineId: id },
+  });
+  const machine = data?.getMachine;
 
   console.log(id);
 
@@ -34,39 +32,37 @@ function MachineDetails() {
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
-  return  (
+  return (
     <div>
-        <h1>Machine Details</h1> 
-        <Card Title = "Machine Details">
-            <p>{machine?.name}</p>
-        </Card>
-
+      <h1>Machine Details</h1>
+      <Card Title="Machine Details">
+        <p>{machine?.name}</p>
+      </Card>
     </div>
   );
 }
 
-const GET_ALL_QUESTIONS = gql`
+const GET_QUESTIONS_BY_MACHINE_ID = gql`
   query GetQuestionsByMachineId($machineId: ID!) {
-  getQuestionsByMachineId(machineId: $machineId) {
-    machineId
-    questions {
-      answers
-      text
+    getQuestionsByMachineId(machineId: $machineId) {
+      machineId
+      questions {
+        answers
+        text
+      }
     }
   }
-}
 `;
 
 // Questions Card
 
-function MachineQuestions({ id }) {  
-  const { loading, error, data } = useQuery(GET_ALL_QUESTIONS, {
-    variables: { machineId: id }
+function MachineQuestions({ id }) {
+  const { loading, error, data } = useQuery(GET_QUESTIONS_BY_MACHINE_ID, {
+    variables: { machineId: id },
   });
-  
-  // Extract the specific machine's questions. Here I'm assuming that
-  // the query will only return one machine's questions.
-  const questionsForThisMachine = data?.getQuestionsByMachineId?.[0]?.questions || [];
+
+  const questionsForThisMachine =
+    data?.getQuestionsByMachineId?.[0]?.questions || [];
 
   console.log(id);
   console.log("Machine Questions array", questionsForThisMachine);
@@ -78,27 +74,36 @@ function MachineQuestions({ id }) {
     <div>
       <h1>Questions</h1>
       <Card title="Machine Questions Details">
+        {/* Conditional Rendering for Edit/Add Questions */}
         {questionsForThisMachine.length === 0 ? (
-          <p>No questions available for this machine.</p>
+          <>
+            <p>No questions available for this machine.</p>
+            <Link to={`/addquestionnaire/${id}`}>
+              <button>Add Questions</button>
+            </Link>
+          </>
         ) : (
-          questionsForThisMachine.map((q, index) => (
-            <div key={index}>
-              <p>Question: {q.text}</p>
-              <p>Answers: {q.answers ? q.answers.join(', ') : "No answers available"}</p>
-            </div>
-          ))
+          <>
+            {questionsForThisMachine.map((q, index) => (
+              <div key={index}>
+                <p>Question: {q.text}</p>
+                <p>
+                  Answers:{" "}
+                  {q.answers ? q.answers.join(", ") : "No answers available"}
+                </p>
+              </div>
+            ))}
+            {<Link to={`/addquestionnaire/${id}`}>
+              <button>Edit Questions</button>
+            </Link> }
+          </>
         )}
       </Card>
     </div>
   );
 }
 
-
-
-
-
 // QRCode Card
-
 
 function MachinePage() {
   let { id } = useParams();
@@ -107,11 +112,11 @@ function MachinePage() {
     <div>
       <MachineDetails id={id} />
       <MachineQuestions id={id} />
-      {/* Later on, here you can render the QRCode Card */}
+      <div>QRCODE</div>
+      <QRCode value={`http://localhost:3000/machines/${id}/prechecklog-form`} />
+
     </div>
   );
 }
 
-
 export default MachinePage;
-
