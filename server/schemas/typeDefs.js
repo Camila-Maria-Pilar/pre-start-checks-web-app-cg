@@ -33,14 +33,31 @@ const typeDefs = gql`
     answers: [String!]!
   }
 
-  type PreCheckLog {
-    id: ID!
-    machineId: ID!
-    questionId: ID!
+  type QuestionAnswer {
+    questionId: String!
     answerGiven: String!
     comments: String
-    userId: ID!
+  }
+
+  input QuestionAnswerInput {
+    questionId: String!
+    answerGiven: String!
+    comments: String
+  }
+
+
+  type PreCheckLog {
+    id: ID!
+    machineId: String!
+    questionAnswers: [QuestionAnswer!]!
+    userId: String!
     createdAt: String!
+  }
+
+  input PreCheckLogInput {
+    machineId: String!
+    questionAnswers: [QuestionAnswerInput!]!
+    userId: String!
   }
 
   type Auth {
@@ -78,8 +95,8 @@ const typeDefs = gql`
     editQuestion(_id: ID!, machineId: ID!, questions: [AnswerInput!]!): Question!
     deleteQuestion(_id: ID!): Boolean
 
-    addPreCheckLog(machineId: ID!, questionId: ID!, answerGiven: String!, comments: String, userId: ID!): PreCheckLog!    
-    editPreCheckLog(_id: ID!, machineId: ID!, questionId: ID!, answerGiven: String!, comments: String, userId: ID!, ): PreCheckLog!    
+    addPreCheckLog(preCheckLog: PreCheckLogInput!): PreCheckLog!    
+    editPreCheckLog(_id: ID!, preCheckLog: PreCheckLogInput!): PreCheckLog!  
     deletePreCheckLog(_id: ID!): Boolean
   }
 `;

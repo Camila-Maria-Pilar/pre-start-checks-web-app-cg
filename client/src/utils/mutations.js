@@ -109,13 +109,15 @@ export const DELETE_QUESTION = gql`
 `;
 
 export const ADD_PRECHECKLOG = gql`
-  mutation AddPreCheckLog($machineId: ID!, $questionId: ID!, $answerGiven: String!, $userId: ID!) {
-  addPreCheckLog(machineId: $machineId, questionId: $questionId, answerGiven: $answerGiven, userId: $userId) {
+  mutation AddPreCheckLog($preCheckLog: PreCheckLogInput!) {
+  addPreCheckLog(preCheckLog: $preCheckLog) {
     id
     machineId
-    questionId
-    answerGiven
-    comments
+    questionAnswers {
+      questionId
+      answerGiven
+      comments
+    }
     userId
     createdAt
   }

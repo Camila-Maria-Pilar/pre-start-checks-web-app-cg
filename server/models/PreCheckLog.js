@@ -7,15 +7,20 @@ const PreCheckLogSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId, 
     required: true 
   },
-  questionId: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    required: true 
-  },
-  answerGiven: { 
-    type: String, 
-    required: true 
-  },
-  comments: String,
+  questionAnswers: [
+    {
+      questionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      },
+      answerGiven: {
+        type: String,
+        required: true,
+      },
+      comments: String,
+    },
+  ],
+  
   userId: { 
     type: mongoose.Schema.Types.ObjectId, 
     required: true 

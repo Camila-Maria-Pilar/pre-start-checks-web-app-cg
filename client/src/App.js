@@ -8,6 +8,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+//Importing the pages of my app
 import Dashboard from "./pages/Dashboard";
 import AddMachine from "./pages/AddMachine";
 import EditMachine from "./pages/EditMachine";

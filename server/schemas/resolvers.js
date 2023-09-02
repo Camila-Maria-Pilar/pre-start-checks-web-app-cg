@@ -230,23 +230,42 @@ const resolvers = {
     },
 
     // For PreCheckLog
-    addPreCheckLog: async (parent, args, context) => {
-      
+    addPreCheckLog: async (_, { preCheckLog }) => {
       try {
-        // checkRole(context.user, ["Admin", "Operator"], 'perform this operation');
-        return await PreCheckLog.create(args);
+        const newPreCheckLog = new PreCheckLog({
+          machineId: preCheckLog.machineId,
+          questionAnswers: preCheckLog.questionAnswers,
+          userId: preCheckLog.userId,
+        });
+    
+        const result = await newPreCheckLog.save();
+        return result;
       } catch (err) {
-        throw new UserInputError('Error creating pre-check log', err);
+        console.error(err);
+        throw new Error("Could not save pre-check log.");
       }
     },
 
-    editPreCheckLog: async (parent, args, context) => {
-      
+    editPreCheckLog: async (_id, { preCheckLog }) => {
       try {
-        // checkRole(context.user, ["Admin", "Operator"], 'perform this operation');
-        return await PreCheckLog.findByIdAndUpdate(args._id, args, { new: true });
+        const updatedPreCheckLog = await PreCheckLog.findByIdAndUpdate(
+          _id,
+          {
+            machineId: preCheckLog.machineId,
+            questionAnswers: preCheckLog.questionAnswers,
+            userId: preCheckLog.userId,
+          },
+          { new: true }  // This makes sure the updated document is returned
+        );
+    
+        if (!updatedPreCheckLog) {
+          throw new Error('PreCheckLog not found');
+        }
+        
+        return updatedPreCheckLog;
       } catch (err) {
-        throw new ApolloError(err);
+        console.error(err);
+        throw new Error('Could not update pre-check log.');
       }
     },
 
