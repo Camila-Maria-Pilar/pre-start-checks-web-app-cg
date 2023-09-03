@@ -1,8 +1,9 @@
 import React from 'react';
 
+
 function Button({ label, onClick }) {
   return (
-    <button onClick={onClick}>
+    <button className="custom-button" onClick={onClick}>
       {label}
     </button>
   );

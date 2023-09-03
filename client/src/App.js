@@ -8,11 +8,13 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
 //Importing the pages of my app
 import Dashboard from "./pages/Dashboard";
 import AddMachine from "./pages/AddMachine";
 import EditMachine from "./pages/EditMachine";
 import AddUser from "./pages/AddUser";
+import ListUsers from "./pages/ListUsers";
 import EditUser from "./pages/EditUser";
 import ListMachines from "./pages/ListMachines";
 import MachineDetails from "./pages/MachineDetails";
@@ -72,6 +74,8 @@ function App() {
               <Route path="/addquestionnaire/:id" element={<AddQuestionnaire />} />
               <Route path="/editquestionnaire/:id" element={<EditQuestionnaire />} />
               <Route path="/adduser" element={<AddUser />} />
+              <Route path="/listusers" element={<ListUsers />} />
+              
               <Route path="/edituser" element={<EditUser />} />
               <Route path="/machines/:id/prechecklog-form" element={<PrecheckLogForm />} />
               <Route path="/login" element={<Login />} />

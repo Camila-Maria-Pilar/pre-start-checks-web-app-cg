@@ -7,20 +7,23 @@ export const QUERY_ALLUSERS = gql`
     username
     email
     role
-    createdAt
+    
   }
-}`;
+}
+`;
 
 export const QUERY_USER = gql`
   query GetUser($getUserId: ID!) {
-    getUser(id: $getUserId) {
-      id
-      username
-      email
-      role
-      
-    }
-  }`;
+  getUser(id: $getUserId) {
+    id
+    username
+    email
+    password
+    role
+    
+  }
+}
+  `;
 
 export const QUERY_ALLMACHINES = gql`
   query GetAllMachines {
@@ -82,14 +85,18 @@ export const GET_QUESTION = gql`
 export const GET_ALLPRECHECKLOGS = gql`
   query GetAllPreCheckLogs {
   getAllPreCheckLogs {
+    id
     machineId
-    questionId
-    answerGiven
-    comments
+    questionAnswers {
+      questionId
+      answerGiven
+      comments
+    }
     userId
     createdAt
   }
-}`;
+}
+`;
 
 export const GET_PRECHECKLOGBYMACHINE = gql`
   query GetQuestionsByMachineId($machineId: ID!) {
@@ -97,9 +104,11 @@ export const GET_PRECHECKLOGBYMACHINE = gql`
     id
     machineId
     questions {
+      id
       text
-      answers      
+      answers
     }
     createdAt
   }
-}`;
+}
+`;

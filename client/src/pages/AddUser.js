@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -16,13 +17,15 @@ function AddUser() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');  // Initializing with an empty string
+  const [role, setRole] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [addUser] = useMutation(ADD_USER);
 
   const saveUser = async () => {
+    setSuccessMessage(''); // Clear previous success message
     try {
       if (!username || !email || !password || !role) {
-        console.log("All fields are required.");
+        setSuccessMessage("All fields are required."); // Display validation message
         return;
       }
       
@@ -40,8 +43,11 @@ function AddUser() {
         return;
       }
 
-      const userId = data.addUser.id;
-      // Now you can use userId for further operations if needed
+      setUsername(''); // Clear the username field
+      setEmail(''); // Clear the email field
+      setPassword(''); // Clear the password field
+      setRole(''); // Clear the role dropdown
+      setSuccessMessage("User has been saved successfully!"); // Set success message
       
     } catch (error) {
       console.error("Error while saving user:", error);
@@ -51,7 +57,12 @@ function AddUser() {
   return (
     <div>
       <h1>Add User</h1>
-
+      <div style={{ display: "flex", justifyContent: "flex-end", margin: "10px 0" }}>
+        <Link to="/listUsers" style={{ textDecoration: 'none' }}>
+          <button style={{ padding: '8px 12px', cursor: 'pointer' }}>Back to List</button>
+        </Link>
+      </div>
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>} {/* Display success message if exists */}
       <Card title="User Details">
         <InputField
           label="Username"
@@ -84,8 +95,6 @@ function AddUser() {
           <option value="">-- Select Role --</option>
           <option value="Admin">Admin</option>
           <option value="Operator">Operator</option>
-          
-        
         </select>
       </Card>
 

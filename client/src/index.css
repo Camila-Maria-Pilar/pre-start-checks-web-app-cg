@@ -161,7 +161,32 @@ textarea {
   /* 1 */
   margin: 0;
   /* 2 */
+  
 }
+
+button
+ {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  padding: 10px 20px;
+  background-color: #061424; 
+  border: none;
+  border-radius: 5px;
+  color: rgb(214, 208, 208);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  
+}
+  .button:hover {
+    background-color: #0056b3; 
+  }
 
 /**
  * Show the overflow in IE.

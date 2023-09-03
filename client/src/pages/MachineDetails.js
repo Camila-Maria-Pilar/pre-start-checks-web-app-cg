@@ -1,48 +1,40 @@
 import React from 'react';
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Link } from "react-router-dom";
 import QRCode from "react-qr-code";
 import Card from "../components/Card";
 import { useParams } from "react-router-dom";
 import { GET_QUESTIONS_BY_MACHINE_ID, QUERY_MACHINE } from "../utils/queries";
 
-
-// Machine Details Query
-
 const printQRCode = () => {
   window.print();
 };
-// Machine Details Card
 
 function MachineDetails({ id, machine }) {
-  // Removed query here since it's done in MachinePage now
   return (
     <div>
       <h1>Machine Details</h1>
       <Card title="Machine Details">
         <p>{machine?.name}</p>
+        {/* 1.2 "Back to Machines" Button */}
+        <Link to="/machines">
+          <button>Back to Machines</button>
+        </Link>
       </Card>
     </div>
   );
 }
-
-// Questions Card
 
 function MachineQuestions({ id }) {
   const { loading, error, data } = useQuery(GET_QUESTIONS_BY_MACHINE_ID, {
     variables: { machineId: id },
   });
 
-  const questionsForThisMachine =
-    data?.getQuestionsByMachineId?.[0]?.questions || [];
-
-  console.log(id);
-  console.log("Machine Questions array", questionsForThisMachine);
+  const questionsForThisMachine = data?.getQuestionsByMachineId?.[0]?.questions || [];
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
-      
   return (
     <div>
       <h1>Questions</h1>
@@ -60,23 +52,23 @@ function MachineQuestions({ id }) {
               <div key={index}>
                 <p>Question: {q.text}</p>
                 <p>
-                  Answers:{" "}
+                  Answers: 
                   {q.answers ? q.answers.join(", ") : "No answers available"}
                 </p>
               </div>
             ))}
+            {/* 1.1 Hidden "Edit Questions" button */}
+            {/* 
             <Link to={`/editquestionnaire/${id}`}>
               <button>Edit Questions</button>
             </Link>
-            
+            */}
           </>
         )}
       </Card>
     </div>
   );
 }
-
-// QRCode Card
 
 function MachinePage() {
   let { id } = useParams();
@@ -104,3 +96,4 @@ function MachinePage() {
 }
 
 export default MachinePage;
+

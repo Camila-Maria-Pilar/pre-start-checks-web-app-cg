@@ -229,6 +229,44 @@ const resolvers = {
       }
     },
 
+    addQuestionToArray: async (parent, { questionId, newQuestion }, context) => {
+      try {
+          let question = await Question.findById(questionId);
+          question.questions.push(newQuestion);
+          return await question.save();
+      } catch (err) {
+          throw new ApolloError(err);
+      }
+  },
+  
+  editQuestionInArray: async (parent, { questionId, index, updatedQuestion }, context) => {
+      try {
+          let question = await Question.findById(questionId);
+          if (index < 0 || index >= question.questions.length) {
+              throw new UserInputError('Invalid index provided.');
+          }
+          question.questions[index] = updatedQuestion;
+          return await question.save();
+      } catch (err) {
+          throw new ApolloError(err);
+      }
+  },
+  
+  deleteQuestionFromArray: async (parent, { questionId, index }, context) => {
+      try {
+          let question = await Question.findById(questionId);
+          if (index < 0 || index >= question.questions.length) {
+              throw new UserInputError('Invalid index provided.');
+          }
+          question.questions.splice(index, 1);
+          await question.save();
+          return question;
+      } catch (err) {
+          throw new ApolloError(err);
+      }
+  },
+
+
     // For PreCheckLog
     addPreCheckLog: async (_, { preCheckLog }) => {
       try {

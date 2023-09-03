@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom';
 function NavBar() {
   return (
     <nav className="navbar">
-      
-      <Link style={{marginRight: 10}} to="/Dashboard">Dashboard</Link>
-      <Link style={{marginRight: 10}} to="/Machines">Machines</Link>
-      <Link style={{marginRight: 10}} to="/AddMachine">AddMachine</Link>
-      <Link style={{marginRight: 10}} to="/AddUser">AddUser</Link>      
-      <Link style={{marginRight: 10}} to="/Logout">Logout</Link>
-      
+      <Link to="/Dashboard">Dashboard</Link>
+      <Link to="/Machines">Machines</Link>
+      <Link to="/ListUsers">Users</Link>      
+      <Link to="/Logout">Logout</Link>
     </nav>
   );
 }
 
 export default NavBar;
+
 

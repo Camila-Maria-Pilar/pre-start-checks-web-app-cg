@@ -98,6 +98,10 @@ const typeDefs = gql`
     editQuestion(_id: ID!, machineId: ID!, questions: [AnswerInput!]!): Question!
     deleteQuestion(_id: ID!): Boolean
 
+    addQuestionToArray(questionId: ID!, newQuestion: AnswerInput!): Question!
+    editQuestionInArray(questionId: ID!, index: Int!, updatedQuestion: AnswerInput!): Question!
+    deleteQuestionFromArray(questionId: ID!, index: Int!): Question!
+
     addPreCheckLog(preCheckLog: PreCheckLogInput!): PreCheckLog!    
     editPreCheckLog(_id: ID!, preCheckLog: PreCheckLogInput!): PreCheckLog!  
     deletePreCheckLog(_id: ID!): Boolean

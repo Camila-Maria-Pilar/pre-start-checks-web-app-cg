@@ -108,6 +108,52 @@ export const DELETE_QUESTION = gql`
 }
 `;
 
+
+export const ADD_QUESTION_TO_ARRAY = gql`
+  mutation AddQuestionToArray($questionId: ID!, $newQuestion: AnswerInput!) {
+  addQuestionToArray(questionId: $questionId, newQuestion: $newQuestion) {
+    id
+    machineId
+    questions {
+      id
+      text
+      answers
+    }
+    createdAt
+  }
+}
+`;
+
+export const EDIT_QUESTION_IN_ARRAY = gql`
+  mutation EditQuestionInArray($questionId: ID!, $index: Int!, $updatedQuestion: AnswerInput!) {
+  editQuestionInArray(questionId: $questionId, index: $index, updatedQuestion: $updatedQuestion) {
+    id
+    machineId
+    questions {
+      id
+      text
+      answers
+    }
+    createdAt
+  }
+}
+`;
+
+export const DELETE_QUESTION_FROM_ARRAY = gql`
+  mutation DeleteQuestionFromArray($questionId: ID!, $index: Int!) {
+  deleteQuestionFromArray(questionId: $questionId, index: $index) {
+    id
+    machineId
+    questions {
+      id
+      text
+      answers
+    }
+    createdAt
+  }
+}
+`;
+
 export const ADD_PRECHECKLOG = gql`
   mutation AddPreCheckLog($preCheckLog: PreCheckLogInput!) {
   addPreCheckLog(preCheckLog: $preCheckLog) {
