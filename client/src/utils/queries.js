@@ -2,13 +2,14 @@ import { gql } from "@apollo/client";
 
 export const QUERY_ALLUSERS = gql`
   query GetAllUsers {
-    getAllUsers {
-      username
-      email
-      role
-      
-    }
-  }`;
+  getAllUsers {
+    id
+    username
+    email
+    role
+    createdAt
+  }
+}`;
 
 export const QUERY_USER = gql`
   query GetUser($getUserId: ID!) {
@@ -38,17 +39,18 @@ export const QUERY_MACHINE = gql`
 }`;
 
 export const GET_QUESTIONS_BY_MACHINE_ID = gql`
-  query getQuestionsByMachineId($machineId: ID!) {
-    getQuestionsByMachineId(machineId: $machineId) {
+  query GetQuestionsByMachineId($machineId: ID!) {
+  getQuestionsByMachineId(machineId: $machineId) {
+    id
+    machineId
+    questions {
       id
-      machineId
-      questions {
-        text
-        answers
-      }
-      
+      text
+      answers
     }
-  }`;
+    createdAt
+  }
+}`;
 
 export const GET_ALLQUESTIONS = gql`
   query GetQuestionsByMachineId($machineId: ID!) {

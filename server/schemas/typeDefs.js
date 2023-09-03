@@ -17,6 +17,7 @@ const typeDefs = gql`
   }
 
   type Answer {
+    id: ID!
     text: String!
     answers: [String!]!
   }
@@ -59,6 +60,8 @@ const typeDefs = gql`
     questionAnswers: [QuestionAnswerInput!]!
     userId: String!
   }
+
+  
 
   type Auth {
     userId: ID!
