@@ -17,6 +17,7 @@ import EditUser from "./pages/EditUser";
 import ListMachines from "./pages/ListMachines";
 import MachineDetails from "./pages/MachineDetails";
 import AddQuestionnaire from "./pages/AddQuestionnaire";
+import EditQuestionnaire from "./pages/EditQuestionnaire";
 import PrecheckLogForm from "./pages/PrecheckLogForm";
 
 import Login from "./pages/Login";
@@ -69,6 +70,7 @@ function App() {
               <Route path="/addmachine" element={<AddMachine />} />
               <Route path="/editmachine" element={<EditMachine />} />
               <Route path="/addquestionnaire/:id" element={<AddQuestionnaire />} />
+              <Route path="/editquestionnaire/:id" element={<EditQuestionnaire />} />
               <Route path="/adduser" element={<AddUser />} />
               <Route path="/edituser" element={<EditUser />} />
               <Route path="/machines/:id/prechecklog-form" element={<PrecheckLogForm />} />

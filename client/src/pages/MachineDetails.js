@@ -1,58 +1,31 @@
-import { useQuery, gql } from "@apollo/client";
+import React from 'react';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { Link } from "react-router-dom";
 import QRCode from "react-qr-code";
-
 import Card from "../components/Card";
-
 import { useParams } from "react-router-dom";
+import { DELETE_QUESTION } from "../utils/mutations";
+import { GET_QUESTIONS_BY_MACHINE_ID, QUERY_MACHINE } from "../utils/queries";
+
 
 // Machine Details Query
 
-const QUERY_MACHINE = gql`
-  query GetMachine($getMachineId: ID!) {
-    getMachine(id: $getMachineId) {
-      name
-    }
-  }
-`;
-
+const printQRCode = () => {
+  window.print();
+};
 // Machine Details Card
 
-function MachineDetails() {
-  let { id } = useParams();
-  const { loading, error, data } = useQuery(QUERY_MACHINE, {
-    variables: { getMachineId: id },
-  });
-  const machine = data?.getMachine;
-
-  console.log(id);
-
-  console.log("MACHINE ID", machine);
-
-  if (loading) return "Loading...";
-  if (error) return `Error! ${error.message}`;
-
+function MachineDetails({ id, machine }) {
+  // Removed query here since it's done in MachinePage now
   return (
     <div>
       <h1>Machine Details</h1>
-      <Card Title="Machine Details">
+      <Card title="Machine Details">
         <p>{machine?.name}</p>
       </Card>
     </div>
   );
 }
-
-const GET_QUESTIONS_BY_MACHINE_ID = gql`
-  query GetQuestionsByMachineId($machineId: ID!) {
-    getQuestionsByMachineId(machineId: $machineId) {
-      machineId
-      questions {
-        answers
-        text
-      }
-    }
-  }
-`;
 
 // Questions Card
 
@@ -60,6 +33,8 @@ function MachineQuestions({ id }) {
   const { loading, error, data } = useQuery(GET_QUESTIONS_BY_MACHINE_ID, {
     variables: { machineId: id },
   });
+
+  const [deleteQuestion] = useMutation(DELETE_QUESTION);
 
   const questionsForThisMachine =
     data?.getQuestionsByMachineId?.[0]?.questions || [];
@@ -70,11 +45,19 @@ function MachineQuestions({ id }) {
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
+  const handleDelete = () => {
+    deleteQuestion({
+      variables: { id },
+      refetchQueries: [{ query: GET_QUESTIONS_BY_MACHINE_ID, variables: { machineId: id } }],
+    });
+    
+    
+  };
+
   return (
     <div>
       <h1>Questions</h1>
       <Card title="Machine Questions Details">
-        {/* Conditional Rendering for Edit/Add Questions */}
         {questionsForThisMachine.length === 0 ? (
           <>
             <p>No questions available for this machine.</p>
@@ -93,9 +76,11 @@ function MachineQuestions({ id }) {
                 </p>
               </div>
             ))}
-            {<Link to={`/addquestionnaire/${id}`}>
+            <Link to={`/editquestionnaire/${id}`}>
               <button>Edit Questions</button>
-            </Link> }
+            </Link>
+            {/* Placeholder for Delete Questions button */}
+            <button onClick={handleDelete}>Delete Questions</button>
           </>
         )}
       </Card>
@@ -108,13 +93,25 @@ function MachineQuestions({ id }) {
 function MachinePage() {
   let { id } = useParams();
 
+  // Adding this query here to fetch the machine name for both MachineDetails and the QR code card.
+  const { loading: machineLoading, error: machineError, data: machineData } = useQuery(QUERY_MACHINE, {
+    variables: { getMachineId: id },
+  });
+  const machine = machineData?.getMachine;
+
+  if (machineLoading) return "Loading...";
+  if (machineError) return `Error! ${machineError.message}`;
+
   return (
     <div>
-      <MachineDetails id={id} />
+      <MachineDetails id={id} machine={machine} />
       <MachineQuestions id={id} />
-      <div>QRCODE</div>
-      <QRCode value={`http://localhost:3000/machines/${id}/prechecklog-form`} />
-
+      <div className="printableSection">
+        <Card title={`Scan this QR Code for the Pre-Start Check of ${machine?.name}!`}>
+          <QRCode value={`http://localhost:3000/machines/${id}/prechecklog-form`} />
+          <button onClick={printQRCode}>Print QR Code</button>
+        </Card>
+      </div>
     </div>
   );
 }
