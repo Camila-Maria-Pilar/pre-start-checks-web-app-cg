@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import QRCode from "react-qr-code";
 import Card from "../components/Card";
 import { useParams } from "react-router-dom";
-import { DELETE_QUESTION } from "../utils/mutations";
 import { GET_QUESTIONS_BY_MACHINE_ID, QUERY_MACHINE } from "../utils/queries";
 
 
@@ -34,8 +33,6 @@ function MachineQuestions({ id }) {
     variables: { machineId: id },
   });
 
-  const [deleteQuestion] = useMutation(DELETE_QUESTION);
-
   const questionsForThisMachine =
     data?.getQuestionsByMachineId?.[0]?.questions || [];
 
@@ -45,15 +42,7 @@ function MachineQuestions({ id }) {
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
-  const handleDelete = () => {
-    deleteQuestion({
-      variables: { id },
-      refetchQueries: [{ query: GET_QUESTIONS_BY_MACHINE_ID, variables: { machineId: id } }],
-    });
-    
-    
-  };
-
+      
   return (
     <div>
       <h1>Questions</h1>
@@ -79,8 +68,7 @@ function MachineQuestions({ id }) {
             <Link to={`/editquestionnaire/${id}`}>
               <button>Edit Questions</button>
             </Link>
-            {/* Placeholder for Delete Questions button */}
-            <button onClick={handleDelete}>Delete Questions</button>
+            
           </>
         )}
       </Card>
@@ -93,7 +81,6 @@ function MachineQuestions({ id }) {
 function MachinePage() {
   let { id } = useParams();
 
-  // Adding this query here to fetch the machine name for both MachineDetails and the QR code card.
   const { loading: machineLoading, error: machineError, data: machineData } = useQuery(QUERY_MACHINE, {
     variables: { getMachineId: id },
   });
