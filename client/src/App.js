@@ -6,7 +6,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 
 //Importing the pages of my app
@@ -21,6 +21,7 @@ import MachineDetails from "./pages/MachineDetails";
 import AddQuestionnaire from "./pages/AddQuestionnaire";
 import EditQuestionnaire from "./pages/EditQuestionnaire";
 import PrecheckLogForm from "./pages/PrecheckLogForm";
+import Thanks from "./pages/Thanks";
 
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
@@ -56,15 +57,24 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function App() {
+
+
+function Main() {
+  const location = useLocation();
+  const shouldShowNavBar = () => {
+    const { pathname } = location;
+    const noNavBarPaths = ["/thanks", "/login", "/logout", "/Logout"];
+    if (noNavBarPaths.includes(pathname)) return false;
+    if (pathname.includes("/machines/") && pathname.endsWith("/prechecklog-form")) return false;
+    return true;
+  };
+
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
-          <Header />
-          <NavBar />
-          <div className="container">
-            <Routes>
+    <div className="flex-column justify-flex-start min-100-vh">
+      <Header />
+      {shouldShowNavBar() && <NavBar />}
+      <div className="container">
+        <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/machines" element={<ListMachines />} />
@@ -74,16 +84,24 @@ function App() {
               <Route path="/addquestionnaire/:id" element={<AddQuestionnaire />} />
               <Route path="/editquestionnaire/:id" element={<EditQuestionnaire />} />
               <Route path="/adduser" element={<AddUser />} />
-              <Route path="/listusers" element={<ListUsers />} />
-              
+              <Route path="/listusers" element={<ListUsers />} />              
               <Route path="/edituser" element={<EditUser />} />
               <Route path="/machines/:id/prechecklog-form" element={<PrecheckLogForm />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
+              <Route path="/thanks" element={<Thanks />} />
+              </Routes>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Router>
+        <Main />
       </Router>
     </ApolloProvider>
   );

@@ -14,7 +14,7 @@ const Logout = () => {
 
   return (
     <div>
-      <p>You have successfully logged out.</p>
+      <p>You have successfully logged out!</p>
       <button onClick={handleLogout}>Click here to log in again</button>
       
     </div>
