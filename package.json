@@ -4,8 +4,8 @@
   "description": "",
   "main": "server/server.js",
   "engines": {
-    "node": "18.16.0",
-    "npm": "9.5.1"
+    "node": "7.x" ,
+    "node": "16.x"
   },
   "scripts": {
     "start": "nodemon server --ignore client",
