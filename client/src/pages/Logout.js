@@ -13,7 +13,8 @@ const Logout = () => {
   };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
+      <img src="/applogo_notbg3.png" alt="App Logo" style={{ width: '200px' }} />
       <p>You have successfully logged out!</p>
       <button onClick={handleLogout}>Click here to log in again</button>
       

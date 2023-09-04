@@ -3,7 +3,7 @@ import React from 'react';
 function Header() {
   return (
     <header className="header">
-      <h1>Pre-Start Checks</h1>
+      
     </header>
   );
 }

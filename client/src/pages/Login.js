@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
-
 
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
@@ -14,10 +13,10 @@ const LOGIN_MUTATION = gql`
 const Login = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [error, setError] = useState(null);
+  const [isValid, setIsValid] = useState(false); // Validation status
   const navigate = useNavigate();
   const [loginUser] = useMutation(LOGIN_MUTATION);
 
-  // Update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -26,22 +25,30 @@ const Login = () => {
     });
   };
 
- 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-// Submit form
-const handleFormSubmit = async (event) => {
-  event.preventDefault();
-  try {
-    const { data } = await loginUser({ variables: formState });
-    localStorage.setItem('token', data.login.token);
-    navigate('/dashboard');
-  } catch (e) {
-    setError('Failed to login');
-  }
-};
+    // Basic email and password validation
+    if (formState.email && formState.password) {
+      setIsValid(true);
+
+      try {
+        const { data } = await loginUser({ variables: formState });
+        localStorage.setItem('token', data.login.token);
+        navigate('/dashboard');
+      } catch (e) {
+        setError('Failed to login');
+        setIsValid(false);
+      }
+    } else {
+      setError('Please fill in all fields');
+      setIsValid(false);
+    }
+  };
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
+      <img src="/applogo_notbg3.png" alt="App Logo" style={{ width: '200px' }} />
       <h1>Login</h1>
       <form onSubmit={handleFormSubmit}>
         <input
@@ -60,8 +67,8 @@ const handleFormSubmit = async (event) => {
         />
         <button type="submit">Submit</button>
       </form>
-      {error && <div>{error}</div>}
       
+      {error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   );
 };
