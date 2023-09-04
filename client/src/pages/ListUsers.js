@@ -54,7 +54,7 @@ function ListUsers() {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Link to={`/users/${user.id}`}>
-                <button style={{ padding: '8px 12px', cursor: 'pointer' }}>Details</button>
+                
               </Link>
               <button onClick={() => handleDeleteUser(user.id)}>x</button>
             </div>

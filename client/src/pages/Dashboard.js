@@ -97,7 +97,7 @@ function Dashboard() {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Link to={`/preCheckLogs/${log.id}`}>
-                <button style={{ padding: '8px 12px', cursor: 'pointer' }}>Details</button>
+                
               </Link>
               <button onClick={() => handleDeletePreCheckLog(log.id)}>Delete</button>
             </div>
