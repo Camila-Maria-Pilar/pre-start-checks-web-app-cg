@@ -92,7 +92,7 @@ const PreCheckLogForm = () => {
   if (showThanksMessage) {
     const selectedUser = userData?.getAllUsers.find(u => u.id === selectedUserId);
     return (
-      <Card title="Thank You!">
+      <Card title="Thank You!" >
         <p>Thanks {selectedUser?.username} for submitting the Pre-Start Check for {machineData?.getMachine?.name || machineId}!</p>
         <p>Now you can close this page!</p>
         <Button label="Close Page" onClick={closePage} />
@@ -101,7 +101,8 @@ const PreCheckLogForm = () => {
   }
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
+      <img src="/applogo_notbg3.png" alt="App Logo" style={{ width: '200px' }} />
       <h1>Pre-Start Check Form</h1>
 
       <Card title="User Details">
