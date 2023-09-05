@@ -28,7 +28,8 @@ The URL of your portfolio, with my project added to it:
 https://camila-maria-pilar.github.io/react-portfolio-cg/
 
 The URL of the deployed application:
-https://pre-start-checks-web-app-cg-be27a0ba09c9.herokuapp.com/
+https://git.heroku.com/pre-start-checks-web-app-cg.git
+
 
 
 
