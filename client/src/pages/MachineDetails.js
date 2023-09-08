@@ -6,6 +6,9 @@ import Card from "../components/Card";
 import { useParams } from "react-router-dom";
 import { GET_QUESTIONS_BY_MACHINE_ID, QUERY_MACHINE } from "../utils/queries";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3000";
+
+
 const printQRCode = () => {
   window.print();
 };
@@ -87,7 +90,7 @@ function MachinePage() {
       <MachineQuestions id={id} />
       <div className="printableSection">
         <Card title={`Scan this QR Code for the Pre-Start Check of ${machine?.name}!`}>
-          <QRCode value={`http://localhost:3000/machines/${id}/prechecklog-form`} />
+        <QRCode value={`${apiUrl}/machines/${id}/prechecklog-form`} />
           <button onClick={printQRCode}>Print QR Code</button>
         </Card>
       </div>
