@@ -84,6 +84,9 @@ function MachinePage() {
   if (machineLoading) return "Loading...";
   if (machineError) return `Error! ${machineError.message}`;
 
+  console.log("API URL: ", process.env.REACT_APP_API_URL);
+
+
   return (
     <div>
       <MachineDetails id={id} machine={machine} />
